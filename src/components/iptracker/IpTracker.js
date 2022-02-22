@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import axios from "axios";
 import {getGeoLocation} from "../../api/apiUrls";
 import ShowGeoData from "./ShowGeoData";
@@ -13,7 +13,7 @@ const IpTracker = () => {
         getLocation()
     }, []);
 
-    const getLocation =() => {
+    const getLocation = () => {
         setLoading(true)
         axios.get(getGeoLocation)
             .then(response => {
@@ -28,15 +28,15 @@ const IpTracker = () => {
     }
 
     return (
-        <div >
+        <div>
             <h1>Ip Tracker</h1>
             {loading ? <Spinner/> :
                 <Fragment>
                     {error ? <div>
-                              {error}
-                             </div>
+                            {error}
+                        </div>
                         :
-                            <ShowGeoData locationDetails={locationDetails}/>
+                        <ShowGeoData locationDetails={locationDetails}/>
                     }
                 </Fragment>
             }

@@ -1,6 +1,7 @@
 import {Fragment} from 'react'
+
 function ShowGeoData({locationDetails}) {
-    return(
+    return (
         <table align='center' border='1'>
             <tr>
                 <th>Country Name</th>
@@ -12,9 +13,11 @@ function ShowGeoData({locationDetails}) {
             </tr>
             <tbody>
             <tr>{locationDetails.map(details => {
-                const {ip, city, region, region_code, country_name,
+                const {
+                    ip, city, region, region_code, country_name,
                     country_code, country_capital, latitude, longitude,
-                    country_calling_code} = details
+                    country_calling_code
+                } = details
                 return <Fragment key={ip}>
                     <th>{country_name}</th>
                     <th>{country_code}</th>
@@ -29,4 +32,5 @@ function ShowGeoData({locationDetails}) {
         </table>
     )
 }
+
 export default ShowGeoData
