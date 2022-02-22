@@ -33,10 +33,10 @@ const IpTracker = () => {
             {loading ? <Spinner/> :
                 <Fragment>
                     {error ? <div>
-                            {error}
-                        </div>
+                              {error}
+                             </div>
                         :
-                        <ShowGeoData locationDetails={locationDetails}/>
+                            <ShowGeoData locationDetails={locationDetails}/>
                     }
                 </Fragment>
             }
