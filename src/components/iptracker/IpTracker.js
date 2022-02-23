@@ -1,8 +1,9 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import axios from "axios";
 import {getGeoLocation} from "../../api/apiUrls";
 import ShowGeoData from "./ShowGeoData";
 import Spinner from "../common/Spinner";
+import LocalStorage from './../../utils/localStorage'
 
 const GEO_API_KEY = process.env.REACT_APP_GEO_API_KEY
 
@@ -10,9 +11,22 @@ const IpTracker = ({navigate, auth}) => {
     const [locationDetails, setLocation] = useState([])
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const [ipAddress, setIpAddress] = useState('8.8.8.8')
+    const [ipAddress, setIpAddress] = useState('')
+    const [history, setHistory] = useState([])
+    const [historySuggestion, setHistorySuggestion] = useState([])
+
+    useEffect(() => {
+        let history = JSON.parse(LocalStorage.searchedHistory)
+        history = history || []
+        LocalStorage.searchedHistory = JSON.stringify(history)
+        setHistory(history)
+    }, [])
 
     const getLocation = () => {
+        if (!ipAddress){
+            alert('Please enter ip address')
+            return
+        }
         setLoading(true)
         let api = `${getGeoLocation}?apiKey=${GEO_API_KEY}&ip=${ipAddress}`
         axios.get(api)
@@ -23,30 +37,54 @@ const IpTracker = ({navigate, auth}) => {
             })
             .catch(err => {
                 setLoading(false)
-                setError('Oops, something went wrong')
+                setLocation([])
+                setError('Invalid ip address')
             })
+        storeSearchedHistory()
+    }
+
+    const storeSearchedHistory = () => {
+        let history = JSON.parse(LocalStorage.searchedHistory)
+        history = history || []
+        if (history.indexOf(ipAddress) === -1){
+            history.push(ipAddress)
+        }
+        LocalStorage.searchedHistory = JSON.stringify(history)
+        setHistory(history)
+    }
+
+    const showSuggestion = () => {
+        let suggestion = []
+        for (let i=0; i<history.length; i++ ){
+            if (history[i].substr(0, ipAddress.length) === ipAddress){
+                suggestion.push(history[i])
+            }
+        }
+        setHistorySuggestion(suggestion)
     }
 
     const onChangeIpAddress = (e) => {
         const {value} = e.target
         setIpAddress(value)
+        showSuggestion()
     }
 
     return (
         <div>
             <h1>Ip Tracker</h1>
-            <input value={ipAddress} onChange={onChangeIpAddress}/>
+            <input placeholder='Please enter ip address' value={ipAddress} onChange={onChangeIpAddress}/>
             <button onClick={getLocation}> Search</button>
             {loading ? <Spinner/> :
                 <Fragment>
-                    {error ? <div>
-                            {error}
-                        </div>
-                        :
-                        <ShowGeoData locationDetails={locationDetails}/>
+                    {error && <div> {error} </div>}
+                    {locationDetails.length > 0 &&
+                      <ShowGeoData locationDetails={locationDetails}/>
                     }
                 </Fragment>
             }
+            {historySuggestion.map(ipAddress => {
+                return <li key={ipAddress}>{ipAddress}</li>
+            })}
             <br/>
         </div>
     );
