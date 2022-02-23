@@ -10,6 +10,7 @@ function ShowGeoData({locationDetails}) {
                     <th>Country Code</th>
                     <th>Region</th>
                     <th>City</th>
+                    <th>Flag</th>
                     <th>Latitude</th>
                     <th>Longitude</th>
                 </tr>
@@ -17,7 +18,7 @@ function ShowGeoData({locationDetails}) {
                 <tbody>
                 <tr>{locationDetails.map(details => {
                     const {
-                        ip, city, region, region_code, country_name,
+                        ip, city, region, country_flag, country_name,
                         country_code, country_capital, latitude, longitude,
                         country_calling_code
                     } = details
@@ -26,6 +27,7 @@ function ShowGeoData({locationDetails}) {
                         <th>{country_code}</th>
                         <th>{region}</th>
                         <th>{city}</th>
+                        <img src={country_flag} alt={'flag'}/>
                         <th>{latitude}</th>
                         <th>{longitude}</th>
                     </Fragment>

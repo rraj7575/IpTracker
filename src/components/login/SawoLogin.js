@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import Sawo from "sawo";
 import "./LoginPage.css";
 import LocalStorage from './../../utils/localStorage'
-
-const API_KEY = process.env.REACT_APP_API_KEY;
+const SAWO_API_KEY = process.env.REACT_APP_SAWO_API_KEY;
 
 const SawoLogin = () => {
     const [isUserLoggedIn, setUserLoggedIn] = useState(false);
@@ -13,7 +12,7 @@ const SawoLogin = () => {
         let config = {
             containerID: "sawo-container",
             identifierType: "phone_number_sms",
-            apiKey: API_KEY,
+            apiKey: SAWO_API_KEY,
             onSuccess: (payload) => {
                 LocalStorage.userDetails =  JSON.stringify(payload)
                 setUserLoggedIn(true);

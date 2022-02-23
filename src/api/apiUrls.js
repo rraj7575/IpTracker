@@ -1,4 +1,4 @@
-const getGeoLocation = `https://ipapi.co/json/`
+const getGeoLocation = 'https://api.ipgeolocation.io/ipgeo'
 
 export {
     getGeoLocation
