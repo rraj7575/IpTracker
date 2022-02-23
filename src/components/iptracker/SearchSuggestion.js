@@ -20,7 +20,7 @@ function SearchSuggestion({suggestions, onChangeIpAddress, getLocation}) {
                   getItemProps,
                   selectedItem,
                   highlightedIndex,
-                  items: datasource,
+                  items: suggestions,
                   isOpen,
               }) => (
                 <div className="input-group">
@@ -37,12 +37,23 @@ function SearchSuggestion({suggestions, onChangeIpAddress, getLocation}) {
                             Search
                         </button>
                     </div>
+                    <br/>
                     {isOpen && (
                         <ul {...getListItemProps()} className="list-group search-product">
                             {suggestions.map((ipAddress, index) => {
                                 return (
                                     <Fragment key={ipAddress}>
                                         <li className="list-group-item"
+                                            style={{
+                                                backgroundColor:
+                                                    highlightedIndex === index
+                                                        ? 'rgb(232, 232, 232)'
+                                                        : 'white',
+                                                fontWeight:
+                                                    selectedItem && selectedItem === ipAddress
+                                                        ? 'bold'
+                                                        : 'normal'
+                                            }}
                                             onClick={() => {
                                                 getLocation(ipAddress)}}
                                         >

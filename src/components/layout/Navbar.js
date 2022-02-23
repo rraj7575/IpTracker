@@ -20,7 +20,9 @@ function Navbar({auth, navigate, isAuthenticated}) {
     )
     const guestLink = (
         <ul className='navbar-nav ml-auto'>
-            <li className='nav-item'>
+            <li className='nav-item'
+                style={{color: 'white'}}
+            >
                 Welcome
             </li>
         </ul>
@@ -29,11 +31,6 @@ function Navbar({auth, navigate, isAuthenticated}) {
         <nav className='navbar navbar-expand-sm navbar-dark bg-dark mb-4'>
             <div className="container">
                 <div className='collapse navbar-collapse' id='mobile-nav'>
-                    <ul className='navbar-nav mr-auto'>
-                        <li className='nav-item'>
-                            Site Header
-                        </li>
-                    </ul>
                     {isAuthenticated ? authLink : guestLink}
                 </div>
             </div>

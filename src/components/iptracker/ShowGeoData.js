@@ -35,6 +35,7 @@ function ShowGeoData({locationDetails}) {
             {locationDetails.map(details => {
                 const {ip, latitude,} = details
                 return <a href={`https://www.google.com/maps/search/?api=1&query=${latitude},${latitude}`}
+                          target={'_blank'}
                           key={ip}
                 >Visit In Map</a>
             })}

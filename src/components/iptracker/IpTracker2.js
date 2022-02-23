@@ -9,7 +9,7 @@ import SearchSuggestion from "./SearchSuggestion";
 const GEO_API_KEY = process.env.REACT_APP_GEO_API_KEY
 
 class IpTracker2 extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         let searchedHistory = JSON.parse(LocalStorage.searchedHistory)
         searchedHistory = searchedHistory || []
@@ -25,7 +25,7 @@ class IpTracker2 extends Component {
 
     getLocation = (ip) => {
         const {ipAddress} = this.state
-        if (!ipAddress && !ip){
+        if (!ipAddress && !ip) {
             alert('Please enter ip address')
             return
         }
@@ -46,7 +46,7 @@ class IpTracker2 extends Component {
         const {ipAddress} = this.state
         let searchedHistory = JSON.parse(LocalStorage.searchedHistory)
         searchedHistory = searchedHistory || []
-        if (searchedHistory.indexOf(ipAddress) === -1){
+        if (searchedHistory.indexOf(ipAddress) === -1) {
             searchedHistory.push(ipAddress)
         }
         LocalStorage.searchedHistory = JSON.stringify(searchedHistory)
@@ -56,8 +56,8 @@ class IpTracker2 extends Component {
     showSuggestion = () => {
         let suggestion = []
         const {searchedHistory, ipAddress} = this.state
-        for (let i=0; i<searchedHistory.length; i++ ){
-            if (ipAddress && searchedHistory[i].substr(0, ipAddress.length) === ipAddress){
+        for (let i = 0; i < searchedHistory.length; i++) {
+            if (ipAddress && searchedHistory[i].substr(0, ipAddress.length) === ipAddress) {
                 suggestion.push(searchedHistory[i])
             }
         }
@@ -67,7 +67,7 @@ class IpTracker2 extends Component {
     onChangeIpAddress = (e) => {
         const {value} = e.target
         this.setState({ipAddress: value}, () => {
-           this.showSuggestion()
+            this.showSuggestion()
         })
     }
 
@@ -76,7 +76,8 @@ class IpTracker2 extends Component {
         return (
             <div>
                 <h1>Ip Tracker</h1>
-                <SearchSuggestion onChangeIpAddress={this.onChangeIpAddress}  getLocation={this.getLocation} suggestions={historySuggestion}/>
+                <SearchSuggestion onChangeIpAddress={this.onChangeIpAddress} getLocation={this.getLocation}
+                                  suggestions={historySuggestion}/>
                 {loading ? <Spinner/> :
                     <Fragment>
                         {error && <div> {error} </div>}
