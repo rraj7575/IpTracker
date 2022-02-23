@@ -35,8 +35,17 @@ function ShowGeoData({locationDetails}) {
                 })}</tr>
                 </tbody>
             </table>
+            {locationDetails.map(details => {
+                const {ip, latitude, } = details
+                return <a href={`https://www.google.com/maps/search/?api=1&query=${latitude},${latitude}`}
+                          key={ip}
+                >Visit Map</a>
+            })}
         </div>
     )
 }
+
+
+
 
 export default ShowGeoData

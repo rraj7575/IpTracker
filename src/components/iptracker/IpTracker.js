@@ -12,10 +12,6 @@ const IpTracker = () => {
     const [loading, setLoading] = useState(false)
     const [ipAddress, setIpAddress] = useState('8.8.8.8')
 
-    // useEffect(() => {
-    //     getLocation()
-    // }, [])
-
     const getLocation = () => {
         setLoading(true)
         let api = `${getGeoLocation}?apiKey=${GEO_API_KEY}&ip=${ipAddress}`
@@ -34,13 +30,13 @@ const IpTracker = () => {
     const onChangeIpAddress = (e) => {
         const {value} = e.target
         setIpAddress(value)
-        getLocation()
     }
 
     return (
         <div>
             <h1>Ip Tracker</h1>
             <input value={ipAddress} onChange={onChangeIpAddress}/>
+            <button onClick={getLocation}> Search </button>
             {loading ? <Spinner/> :
                 <Fragment>
                     {error ? <div>
