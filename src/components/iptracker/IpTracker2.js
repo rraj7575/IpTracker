@@ -25,14 +25,12 @@ class IpTracker2 extends Component {
 
     getLocation = (ip) => {
         const {ipAddress} = this.state
-        debugger
         if (!ipAddress && !ip){
             alert('Please enter ip address')
             return
         }
         this.setState({loading: true})
         let api = `${getGeoLocation}?apiKey=${GEO_API_KEY}&ip=${ip || ipAddress}`
-        debugger
         axios.get(api)
             .then(response => {
                 const {data} = response
@@ -63,6 +61,7 @@ class IpTracker2 extends Component {
                 suggestion.push(searchedHistory[i])
             }
         }
+        this.setState({historySuggestion: suggestion})
     }
 
     onChangeIpAddress = (e) => {
