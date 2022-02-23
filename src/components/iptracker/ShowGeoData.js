@@ -1,6 +1,6 @@
 import {Fragment} from 'react'
 
-function ShowGeoData({locationDetails, L}) {
+function ShowGeoData({locationDetails}) {
     return (
         <div>
             <table align='center' border='1'>

@@ -41,7 +41,6 @@ const IpTracker = () => {
                 </Fragment>
             }
             <br/>
-            {/*<div id="map" />*/}
         </div>
     );
 };
