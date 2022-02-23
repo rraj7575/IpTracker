@@ -35,6 +35,7 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script src="http://websdk.sawolabs.com/sawo.min.js"></script> <script> var config = { // should be same as the id of the container created on 3rd step containerID: "sawo-container", // can be one of 'email' or 'phone_number_sms' identifierType: "phone_number_sms", // Add the API key copied from 2nd step apiKey: "", // Add a callback here to handle the payload sent by sdk onSuccess: (payload) => { console.log(payload) }, }; var sawo = new Sawo(config); sawo.showForm(); </script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

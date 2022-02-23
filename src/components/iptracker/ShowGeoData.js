@@ -4,6 +4,7 @@ function ShowGeoData({locationDetails}) {
     return (
         <div>
             <table align='center' border='1'>
+                <thead>
                 <tr>
                     <th>Country Name</th>
                     <th>Country Code</th>
@@ -12,6 +13,7 @@ function ShowGeoData({locationDetails}) {
                     <th>Latitude</th>
                     <th>Longitude</th>
                 </tr>
+                </thead>
                 <tbody>
                 <tr>{locationDetails.map(details => {
                     const {
