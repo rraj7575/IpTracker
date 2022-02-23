@@ -7,6 +7,7 @@ import IpTracker from "./components/iptracker/IpTracker";
 import Navbar from "./components/layout/Navbar";
 import {root, ipTracker} from "./path/commonPath";
 import Footer from "./components/layout/Footer";
+import IpTracker2 from "./components/iptracker/IpTracker2";
 
 
 function Root({}) {
@@ -23,7 +24,7 @@ function Root({}) {
             <Navbar auth={auth} navigate={navigate} isAuthenticated={isAuthenticated}/>
             <Routes>
                 <Route path={root} element={<SawoLogin auth={auth} navigate={navigate} isAuthenticated={isAuthenticated}/>}/>
-                <Route exact path={ipTracker} element={<IpTracker auth={auth} isAuthenticated={isAuthenticated}/>}/>
+                <Route exact path={ipTracker} element={<IpTracker2 auth={auth} isAuthenticated={isAuthenticated}/>}/>
             </Routes>
             <Footer/>
         </div>

@@ -17,7 +17,7 @@ function ShowGeoData({locationDetails}) {
                 <tbody>
                 <tr>{locationDetails.map(details => {
                     const {
-                        ip, city, region, country_flag, country_name,
+                        ip, city, country_flag, country_name,
                         country_code2, latitude, longitude,
                     } = details
                     return <Fragment key={ip}>

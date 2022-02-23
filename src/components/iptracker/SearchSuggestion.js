@@ -33,7 +33,7 @@ function SearchSuggestion({suggestions, onChangeIpAddress, getLocation}) {
                            })}
                     />
                     <div className="input-group-btn">
-                        <button className="btn btn-header-search" onClick={getLocation}>
+                        <button className="btn btn-header-search" onClick={() => getLocation()}>
                             Search
                         </button>
                     </div>
