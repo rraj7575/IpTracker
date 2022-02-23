@@ -10,7 +10,7 @@ const IpTracker = () => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        // getLocation()
+        getLocation()
     }, []);
 
     const getLocation = () => {
