@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import axios from "axios";
 import {getGeoLocation} from "../../api/apiUrls";
 import ShowGeoData from "./ShowGeoData";
@@ -36,7 +36,7 @@ const IpTracker = ({navigate, auth}) => {
         <div>
             <h1>Ip Tracker</h1>
             <input value={ipAddress} onChange={onChangeIpAddress}/>
-            <button onClick={getLocation}> Search </button>
+            <button onClick={getLocation}> Search</button>
             {loading ? <Spinner/> :
                 <Fragment>
                     {error ? <div>
