@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useEffect, Component} from 'react';
+import React, {Fragment, Component} from 'react';
 import axios from "axios";
 import {getGeoLocation} from "../../api/apiUrls";
 import ShowGeoData from "./ShowGeoData";
@@ -34,10 +34,19 @@ class IpTracker2 extends Component {
         axios.get(api)
             .then(response => {
                 const {data} = response
-                this.setState({loading: false, locationDetails: [{...data}], error: ''})
+                let updatedState = {
+                    loading: false,
+                    locationDetails: [{...data}],
+                    error: '',
+                    historySuggestion: []
+                }
+                if (ip){
+                    updatedState['ipAddress'] = ip
+                }
+                this.setState({...updatedState})
             })
             .catch(err => {
-                this.setState({loading: false, locationDetails: [], error: 'Invalid ip address'})
+                this.setState({loading: false, locationDetails: [], historySuggestion: [], error: 'Invalid ip address'})
             })
         this.storeSearchedHistory()
     }
@@ -72,17 +81,25 @@ class IpTracker2 extends Component {
     }
 
     render() {
-        const {loading, locationDetails, historySuggestion, error} = this.state
+        const {loading, locationDetails, historySuggestion, error, ipAddress} = this.state
         return (
             <div>
                 <h1>Ip Tracker</h1>
-                <SearchSuggestion onChangeIpAddress={this.onChangeIpAddress} getLocation={this.getLocation}
-                                  suggestions={historySuggestion}/>
+                <SearchSuggestion onChangeIpAddress={this.onChangeIpAddress}
+                                  getLocation={this.getLocation}
+                                  suggestions={historySuggestion}
+                                  inputVal={ipAddress}
+                />
                 {loading ? <Spinner/> :
                     <Fragment>
                         {error && <div> {error} </div>}
                         {locationDetails.length > 0 &&
-                        <ShowGeoData locationDetails={locationDetails}/>
+                            <Fragment>
+                                <br/>
+                                <h1>Information About IP Address: {ipAddress}</h1>
+                                <br/>
+                                <ShowGeoData locationDetails={locationDetails}/>
+                            </Fragment>
                         }
                     </Fragment>
                 }

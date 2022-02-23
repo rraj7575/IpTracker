@@ -12,9 +12,9 @@ function Navbar({auth, navigate, isAuthenticated}) {
     const authLink = (
         <ul className='navbar-nav ml-auto'>
             <li className='nav-item'>
-                <button onClick={onLogout} className='nav-link'>
+                <a onClick={onLogout} className='nav-link'>
                     Logout
-                </button>
+                </a>
             </li>
         </ul>
     )

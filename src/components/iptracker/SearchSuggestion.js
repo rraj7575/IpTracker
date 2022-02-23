@@ -1,19 +1,20 @@
 import Suggestion from 'search-suggestion';
 import {Fragment} from "react";
 
-function SearchSuggestion({suggestions, onChangeIpAddress, getLocation}) {
+function SearchSuggestion({suggestions, onChangeIpAddress, getLocation, inputVal}) {
     return(
         <Suggestion
             items={suggestions}
-            onSelectedItem={service => {
-                const { slug } = service || {};
-                const { history } = this.props;
-                if (slug) {
-                    history.push({
-                        pathname: slug
-                    });
-                }
-            }} >
+            // onSelectedItem={service => {
+            //     const { slug } = service || {};
+            //     const { history } = this.props;
+            //     if (slug) {
+            //         history.push({
+            //             pathname: slug
+            //         });
+            //     }
+            // }}
+        >
             {({
                   getInputProps,
                   getListItemProps,
@@ -24,12 +25,14 @@ function SearchSuggestion({suggestions, onChangeIpAddress, getLocation}) {
                   isOpen,
               }) => (
                 <div className="input-group">
+                    <span className="search-icon"><i className="fa fa-search" aria-hidden="true" /></span>
                     <input className="form-control input-lg"
+                           // value={inputVal}
                            autoComplete="off"
                            {...getInputProps({
                                placeholder: 'Please Enter Ip Address',
                                onChange: onChangeIpAddress,
-                               onKeyDown: onChangeIpAddress
+                               value: inputVal
                            })}
                     />
                     <div className="input-group-btn">
