@@ -4,6 +4,7 @@ import {getGeoLocation} from "../../api/apiUrls";
 import ShowGeoData from "./ShowGeoData";
 import Spinner from "../common/Spinner";
 import LocalStorage from './../../utils/localStorage'
+import SearchSuggestion from "./SearchSuggestion";
 
 const GEO_API_KEY = process.env.REACT_APP_GEO_API_KEY
 
@@ -22,13 +23,17 @@ const IpTracker = ({navigate, auth}) => {
         setHistory(history)
     }, [])
 
-    const getLocation = () => {
-        if (!ipAddress){
+    useEffect(() => {
+        showSuggestion()
+    }, [ipAddress])
+
+    const getLocation = (ip) => {
+        if (!ipAddress && !ip){
             alert('Please enter ip address')
             return
         }
         setLoading(true)
-        let api = `${getGeoLocation}?apiKey=${GEO_API_KEY}&ip=${ipAddress}`
+        let api = `${getGeoLocation}?apiKey=${GEO_API_KEY}&ip=${ip || ipAddress}`
         axios.get(api)
             .then(response => {
                 const {data} = response
@@ -56,7 +61,7 @@ const IpTracker = ({navigate, auth}) => {
     const showSuggestion = () => {
         let suggestion = []
         for (let i=0; i<history.length; i++ ){
-            if (history[i].substr(0, ipAddress.length) === ipAddress){
+            if (ipAddress && history[i].substr(0, ipAddress.length) === ipAddress){
                 suggestion.push(history[i])
             }
         }
@@ -66,14 +71,13 @@ const IpTracker = ({navigate, auth}) => {
     const onChangeIpAddress = (e) => {
         const {value} = e.target
         setIpAddress(value)
-        showSuggestion()
     }
 
     return (
         <div>
             <h1>Ip Tracker</h1>
-            <input placeholder='Please enter ip address' value={ipAddress} onChange={onChangeIpAddress}/>
-            <button onClick={getLocation}> Search</button>
+            {/*<input placeholder='Please enter ip address' value={ipAddress} onChange={onChangeIpAddress}/>*/}
+            <SearchSuggestion onChangeIpAddress={onChangeIpAddress}  getLocation={getLocation} suggestions={historySuggestion}/>
             {loading ? <Spinner/> :
                 <Fragment>
                     {error && <div> {error} </div>}
@@ -82,9 +86,9 @@ const IpTracker = ({navigate, auth}) => {
                     }
                 </Fragment>
             }
-            {historySuggestion.map(ipAddress => {
-                return <li key={ipAddress}>{ipAddress}</li>
-            })}
+            {/*{historySuggestion.map(ipAddress => {*/}
+                {/*return <li key={ipAddress}>{ipAddress}</li>*/}
+            {/*})}*/}
             <br/>
         </div>
     );
