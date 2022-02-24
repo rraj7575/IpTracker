@@ -17,9 +17,9 @@ function ShowGeoData({locationDetails}) {
                    <p>Country Name</p>
                    <p>Country Code</p>
                    <p>City</p>
-                   <p>Flag</p>
                    <p>Latitude</p>
                    <p>Longitude</p>
+                   <p>Flag</p>
                    <br/>
                    {locationDetails.map(details => {
                        const {ip, latitude,} = details
@@ -39,9 +39,9 @@ function ShowGeoData({locationDetails}) {
                             <p>{country_name}</p>
                             <p>{country_code2}</p>
                             <p>{city}</p>
-                            <p><img src={country_flag} alt={'flag'}/></p>
                             <p>{latitude}</p>
                             <p>{longitude}</p>
+                            <p><img src={country_flag} alt={'flag'}/></p>
                         </Fragment>
 
                     })}
