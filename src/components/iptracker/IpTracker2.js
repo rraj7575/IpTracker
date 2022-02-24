@@ -85,6 +85,19 @@ class IpTracker2 extends Component {
         return (
             <div>
                 <h1>Ip Tracker</h1>
+                <br/>
+                <div className='input-group'>
+                    <input className="form-control input-lg"
+                           onChange={this.onChangeIpAddress}
+                           value={ipAddress}
+                           placeholder={'Please Enter Ip Address'}
+                    />
+                    <div className="input-group-btn">
+                        <button className="btn btn-header-search" onClick={this.getLocation}>
+                            Search
+                        </button>
+                    </div>
+                </div>
                 <SearchSuggestion onChangeIpAddress={this.onChangeIpAddress}
                                   getLocation={this.getLocation}
                                   suggestions={historySuggestion}
@@ -95,8 +108,6 @@ class IpTracker2 extends Component {
                         {error && <div> {error} </div>}
                         {locationDetails.length > 0 &&
                             <Fragment>
-                                <br/>
-                                <h1>Information About IP Address: {ipAddress}</h1>
                                 <br/>
                                 <ShowGeoData locationDetails={locationDetails}/>
                             </Fragment>

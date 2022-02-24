@@ -1,8 +1,14 @@
 import {Fragment} from 'react'
+import React from "react";
 
 function ShowGeoData({locationDetails}) {
     return (
         <div>
+            {locationDetails.map(details => {
+                const {ip} = details
+                return <h1 key={ip}>Information About IP Address: {ip}</h1>
+            })}
+
             <table align='center' border='1'>
                 <thead>
                 <tr>
