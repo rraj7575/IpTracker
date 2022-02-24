@@ -16,6 +16,6 @@
     color: #fff;
     font-size: 16px;
 }
- input:focus{
+*:focus {
     outline: none;
 }

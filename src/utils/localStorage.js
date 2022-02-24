@@ -19,7 +19,7 @@ class LocalStorage {
   }
 
   clear () {
-    window.localStorage.clear()
+    localStorage.removeItem(USER_DETAILS);
   }
 }
 

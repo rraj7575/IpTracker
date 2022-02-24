@@ -28,10 +28,10 @@ function Navbar({auth, navigate, isAuthenticated}) {
         </ul>
     )
     return (
-            <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-                <a className="navbar-brand" href="#">Ip Tracker</a>
-                {isAuthenticated ? authLink : guestLink}
-            </nav>
+        <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+            <a className="navbar-brand" href="#">Ip Tracker</a>
+            {isAuthenticated ? authLink : guestLink}
+        </nav>
     )
 }
 

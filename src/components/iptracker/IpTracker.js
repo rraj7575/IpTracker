@@ -1,98 +1,137 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, {Fragment, Component} from 'react';
 import axios from "axios";
 import {getGeoLocation} from "../../api/apiUrls";
 import ShowGeoData from "./ShowGeoData";
 import Spinner from "../common/Spinner";
+import './ipTracker.css'
 import LocalStorage from './../../utils/localStorage'
 import SearchSuggestion from "./SearchSuggestion";
 
+
 const GEO_API_KEY = process.env.REACT_APP_GEO_API_KEY
 
-const IpTracker = ({navigate, auth}) => {
-    const [locationDetails, setLocation] = useState([])
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
-    const [ipAddress, setIpAddress] = useState('')
-    const [history, setHistory] = useState([])
-    const [historySuggestion, setHistorySuggestion] = useState([])
+class IpTracker extends Component {
+    constructor(props) {
+        super(props)
+        let searchedHistory = JSON.parse(LocalStorage.searchedHistory)
+        searchedHistory = searchedHistory || []
+        this.state = {
+            locationDetails: [],
+            error: '',
+            loading: false,
+            ipAddress: '',
+            searchedHistory,
+            historySuggestion: [],
+        }
+    }
 
-    useEffect(() => {
-        let history = JSON.parse(LocalStorage.searchedHistory)
-        history = history || []
-        LocalStorage.searchedHistory = JSON.stringify(history)
-        setHistory(history)
-    }, [])
-
-    useEffect(() => {
-        showSuggestion()
-    }, [ipAddress])
-
-    const getLocation = (ip) => {
-        if (!ipAddress && !ip){
+    getLocation = (ip) => {
+        const {ipAddress} = this.state
+        if (!ipAddress && !ip) {
             alert('Please enter ip address')
             return
         }
-        setLoading(true)
+        this.setState({loading: true})
         let api = `${getGeoLocation}?apiKey=${GEO_API_KEY}&ip=${ip || ipAddress}`
         axios.get(api)
             .then(response => {
                 const {data} = response
-                setLoading(false)
-                setLocation([{...data}])
+                let updatedState = {
+                    loading: false,
+                    locationDetails: [{...data}],
+                    error: '',
+                    historySuggestion: []
+                }
+                if (ip) {
+                    updatedState['ipAddress'] = ip
+                }
+                this.setState({...updatedState})
             })
             .catch(err => {
-                setLoading(false)
-                setLocation([])
-                setError('Invalid ip address')
+                this.setState({loading: false, locationDetails: [], historySuggestion: [], error: 'Invalid ip address'})
             })
-        storeSearchedHistory()
+        this.storeSearchedHistory()
     }
 
-    const storeSearchedHistory = () => {
-        let history = JSON.parse(LocalStorage.searchedHistory)
-        history = history || []
-        if (history.indexOf(ipAddress) === -1){
-            history.push(ipAddress)
+    storeSearchedHistory = () => {
+        const {ipAddress} = this.state
+        let searchedHistory = JSON.parse(LocalStorage.searchedHistory)
+        searchedHistory = searchedHistory || []
+        if (searchedHistory.indexOf(ipAddress) === -1) {
+            searchedHistory.push(ipAddress)
         }
-        LocalStorage.searchedHistory = JSON.stringify(history)
-        setHistory(history)
+        LocalStorage.searchedHistory = JSON.stringify(searchedHistory)
+        this.setState({searchedHistory})
     }
 
-    const showSuggestion = () => {
-        let suggestion = []
-        for (let i=0; i<history.length; i++ ){
-            if (ipAddress && history[i].substr(0, ipAddress.length) === ipAddress){
-                suggestion.push(history[i])
+    showSuggestion = () => {
+        let historySuggestion = []
+        const {searchedHistory, ipAddress} = this.state
+        for (let i = 0; i < searchedHistory.length; i++) {
+            if (ipAddress && searchedHistory[i].substr(0, ipAddress.length) === ipAddress) {
+                historySuggestion.push(searchedHistory[i])
             }
         }
-        setHistorySuggestion(suggestion)
+        this.setState({historySuggestion})
     }
 
-    const onChangeIpAddress = (e) => {
+    onChangeIpAddress = (e) => {
         const {value} = e.target
-        setIpAddress(value)
+        this.setState({ipAddress: value}, () => {
+            this.showSuggestion()
+        })
     }
 
-    return (
-        <div>
-            <h1>Ip Tracker</h1>
-            {/*<input placeholder='Please enter ip address' value={ipAddress} onChange={onChangeIpAddress}/>*/}
-            <SearchSuggestion onChangeIpAddress={onChangeIpAddress}  getLocation={getLocation} suggestions={historySuggestion}/>
-            {loading ? <Spinner/> :
-                <Fragment>
-                    {error && <div> {error} </div>}
-                    {locationDetails.length > 0 &&
-                      <ShowGeoData locationDetails={locationDetails}/>
-                    }
-                </Fragment>
-            }
-            {/*{historySuggestion.map(ipAddress => {*/}
-                {/*return <li key={ipAddress}>{ipAddress}</li>*/}
-            {/*})}*/}
-            <br/>
-        </div>
-    );
-};
+    render() {
+        const {loading, locationDetails, historySuggestion, error, ipAddress} = this.state
+        return (
+            <div className="container top-offset">
+                <div className="row">
+                    <div className="col-sm-8 mx-auto">
+                        <h1 style={{marginBottom: '30px'}}>Ip Tracker</h1>
+                        <div className='row'>
+                            <div className='col-12'>
+                                <div className='input-group'>
+                                    <input className="form-control input-lg"
+                                           onChange={this.onChangeIpAddress}
+                                           value={ipAddress}
+                                           placeholder={'Please Enter Ip Address'}
+                                    />
+                                    <div className="input-group-btn btn-header-search">
+                                        <button className="btn btn-header-search" onClick={() => this.getLocation()}>
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+                                <SearchSuggestion onChangeIpAddress={this.onChangeIpAddress}
+                                                  getLocation={this.getLocation}
+                                                  suggestions={historySuggestion}
+                                                  inputVal={ipAddress}
+                                />
+                                <div className='col-12'>
+                                    {loading ? <Spinner/> :
+                                        <Fragment>
+                                            {error && <div style={{color: 'red'}}> {error} </div>}
+                                            {locationDetails.length > 0 &&
+                                            <Fragment>
+                                                <br/>
+                                                <div className='row'>
+                                                    <br/>
+                                                    <ShowGeoData locationDetails={locationDetails}/>
+                                                </div>
+                                            </Fragment>
+                                            }
+                                        </Fragment>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
 
 
 export default IpTracker
