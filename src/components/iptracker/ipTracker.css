@@ -4,3 +4,10 @@
 .list-group-item:hover{
     color: #ff337d!important;
 }
+.search-suggestion{
+    position: relative;
+}
+.search-suggestion-ul{
+    position: absolute;
+    width: 85%;
+}

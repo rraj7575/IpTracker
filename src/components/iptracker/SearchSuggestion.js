@@ -13,8 +13,8 @@ function SearchSuggestion({suggestions, onChangeIpAddress, getLocation}) {
 
               }) => (
                 <div className="row">
-                <div className="col-sm-12">
-                    <ul {...getListItemProps()} className="list-group search-product"
+                <div className="col-sm-12 search-suggestion">
+                    <ul {...getListItemProps()} className="list-group search-product search-suggestion-ul"
                         style={{zIndex: '10'}}
                     >
                         {suggestions.map((ipAddress, index) => {
