@@ -6,10 +6,10 @@ function ShowGeoData({locationDetails}) {
         <div>
             {locationDetails.map(details => {
                 const {ip} = details
-                return <h3 key={ip}>Information About IP Address: {ip}</h3>
+                return <h3 key={ip} style={{marginBottom:'20px'}}>Information About IP Address: {ip}</h3>
             })}
-            <div className='Row'>
-               <div className='col-5'>
+            <div className='row'>
+               <div className='col'>
                     <p>Country Name</p>
                    <p>Country Code</p>
                    <p>City</p>
@@ -17,7 +17,7 @@ function ShowGeoData({locationDetails}) {
                    <p>Latitude</p>
                    <p>Longitude</p>
                </div>
-                <div className='col-7'>
+                <div className='col'>
                     {locationDetails.map(details => {
                         const {
                             ip, city, country_flag, country_name,

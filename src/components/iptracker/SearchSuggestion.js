@@ -12,15 +12,15 @@ function SearchSuggestion({suggestions, onChangeIpAddress, getLocation}) {
                   items: suggestions,
 
               }) => (
-                <div className="input-group">
-                    <br/>
+                <div className="row">
+                <div className="col-sm-12">
                     <ul {...getListItemProps()} className="list-group search-product"
                         style={{zIndex: '10'}}
                     >
                         {suggestions.map((ipAddress, index) => {
                             return (
                                 <Fragment key={ipAddress}>
-                                    <li className="list-group-item"
+                                    <a className="list-group-item"
                                         style={{
                                             backgroundColor:
                                                 highlightedIndex === index
@@ -35,11 +35,12 @@ function SearchSuggestion({suggestions, onChangeIpAddress, getLocation}) {
                                             getLocation(ipAddress)}}
                                     >
                                         {ipAddress}
-                                    </li>
+                                    </a>
                                 </Fragment>
                             );
                         })}
                     </ul>
+                </div>
                 </div>
             )}
         </Suggestion>

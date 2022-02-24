@@ -3,8 +3,10 @@ import axios from "axios";
 import {getGeoLocation} from "../../api/apiUrls";
 import ShowGeoData from "./ShowGeoData";
 import Spinner from "../common/Spinner";
+import './ipTracker.css'
 import LocalStorage from './../../utils/localStorage'
 import SearchSuggestion from "./SearchSuggestion";
+
 
 const GEO_API_KEY = process.env.REACT_APP_GEO_API_KEY
 
@@ -40,7 +42,7 @@ class IpTracker2 extends Component {
                     error: '',
                     historySuggestion: []
                 }
-                if (ip){
+                if (ip) {
                     updatedState['ipAddress'] = ip
                 }
                 this.setState({...updatedState})
@@ -83,38 +85,40 @@ class IpTracker2 extends Component {
     render() {
         const {loading, locationDetails, historySuggestion, error, ipAddress} = this.state
         return (
-            <div>
-                <h1>Ip Tracker</h1>
-                <br/>
-                <div className='input-group'>
-                    <input className="form-control input-lg"
-                           onChange={this.onChangeIpAddress}
-                           value={ipAddress}
-                           placeholder={'Please Enter Ip Address'}
-                    />
-                    <div className="input-group-btn">
-                        <button className="btn btn-header-search" onClick={this.getLocation}>
-                            Search
-                        </button>
-                    </div>
-                </div>
-                <SearchSuggestion onChangeIpAddress={this.onChangeIpAddress}
-                                  getLocation={this.getLocation}
-                                  suggestions={historySuggestion}
-                                  inputVal={ipAddress}
-                />
-                {loading ? <Spinner/> :
-                    <Fragment>
-                        {error && <div> {error} </div>}
-                        {locationDetails.length > 0 &&
+            <div className="container top-offset">
+                <div className="row">
+                    <div className="col-sm-8 mx-auto">
+                        <h1 style={{marginBottom: '30px'}}>Ip Tracker</h1>
+                        <div className='input-group'>
+                            <input className="form-control input-lg"
+                                   onChange={this.onChangeIpAddress}
+                                   value={ipAddress}
+                                   placeholder={'Please Enter Ip Address'}
+                            />
+                            <div className="input-group-btn">
+                                <button className="btn btn-header-search" onClick={this.getLocation}>
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                        <SearchSuggestion onChangeIpAddress={this.onChangeIpAddress}
+                                          getLocation={this.getLocation}
+                                          suggestions={historySuggestion}
+                                          inputVal={ipAddress}
+                        />
+                        {loading ? <Spinner/> :
                             <Fragment>
-                                <br/>
-                                <ShowGeoData locationDetails={locationDetails}/>
+                                {error && <div> {error} </div>}
+                                {locationDetails.length > 0 &&
+                                <Fragment>
+                                    <br/>
+                                    <ShowGeoData locationDetails={locationDetails}/>
+                                </Fragment>
+                                }
                             </Fragment>
                         }
-                    </Fragment>
-                }
-                <br/>
+                    </div>
+                </div>
             </div>
         );
     }
