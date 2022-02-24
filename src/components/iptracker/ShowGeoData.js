@@ -6,7 +6,7 @@ function ShowGeoData({locationDetails}) {
         <div>
             {locationDetails.map(details => {
                 const {ip} = details
-                return <h1 key={ip}>Information About IP Address: {ip}</h1>
+                return <h3 key={ip}>Information About IP Address: {ip}</h3>
             })}
 
             <table align='center' border='1'>

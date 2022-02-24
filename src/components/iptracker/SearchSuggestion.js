@@ -1,7 +1,7 @@
 import Suggestion from 'search-suggestion';
 import {Fragment} from "react";
 
-function SearchSuggestion({suggestions, onChangeIpAddress, getLocation, inputVal}) {
+function SearchSuggestion({suggestions, onChangeIpAddress, getLocation}) {
     return(
         <Suggestion
             items={suggestions}>

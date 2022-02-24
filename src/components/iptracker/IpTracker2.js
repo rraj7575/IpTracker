@@ -63,14 +63,14 @@ class IpTracker2 extends Component {
     }
 
     showSuggestion = () => {
-        let suggestion = []
+        let historySuggestion = []
         const {searchedHistory, ipAddress} = this.state
         for (let i = 0; i < searchedHistory.length; i++) {
             if (ipAddress && searchedHistory[i].substr(0, ipAddress.length) === ipAddress) {
-                suggestion.push(searchedHistory[i])
+                historySuggestion.push(searchedHistory[i])
             }
         }
-        this.setState({historySuggestion: suggestion})
+        this.setState({historySuggestion})
     }
 
     onChangeIpAddress = (e) => {
