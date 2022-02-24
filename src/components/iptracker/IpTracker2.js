@@ -96,7 +96,7 @@ class IpTracker2 extends Component {
                                    placeholder={'Please Enter Ip Address'}
                             />
                             <div className="input-group-btn">
-                                <button className="btn btn-header-search" onClick={this.getLocation}>
+                                <button className="btn btn-header-search" onClick={() => this.getLocation()}>
                                     Search
                                 </button>
                             </div>
