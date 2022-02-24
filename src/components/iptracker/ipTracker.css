@@ -11,3 +11,11 @@
     position: absolute;
     width: 85%;
 }
+.btn-header-search {
+    background: #ff337d;
+    color: #fff;
+    font-size: 16px;
+}
+ input:focus{
+    outline: none;
+}

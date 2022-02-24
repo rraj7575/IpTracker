@@ -89,34 +89,43 @@ class IpTracker2 extends Component {
                 <div className="row">
                     <div className="col-sm-8 mx-auto">
                         <h1 style={{marginBottom: '30px'}}>Ip Tracker</h1>
-                        <div className='input-group'>
-                            <input className="form-control input-lg"
-                                   onChange={this.onChangeIpAddress}
-                                   value={ipAddress}
-                                   placeholder={'Please Enter Ip Address'}
-                            />
-                            <div className="input-group-btn">
-                                <button className="btn btn-header-search" onClick={() => this.getLocation()}>
-                                    Search
-                                </button>
+                        <div className='row'>
+                            <div className='col-12'>
+                                <div className='input-group' >
+                                    <input className="form-control input-lg"
+                                           onChange={this.onChangeIpAddress}
+                                           value={ipAddress}
+                                           placeholder={'Please Enter Ip Address'}
+                                    />
+                                    <div className="input-group-btn btn-header-search">
+                                        <button className="btn btn-header-search" onClick={() => this.getLocation()}>
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+                                <SearchSuggestion onChangeIpAddress={this.onChangeIpAddress}
+                                                  getLocation={this.getLocation}
+                                                  suggestions={historySuggestion}
+                                                  inputVal={ipAddress}
+                                />
+                                <div className='col-12'>
+                                    {loading ? <Spinner/> :
+                                        <Fragment>
+                                            {error && <div style={{color: 'red'}}> {error} </div>}
+                                            {locationDetails.length > 0 &&
+                                            <Fragment>
+                                                <br/>
+                                                <div className='row'>
+                                                    <br/>
+                                                    <ShowGeoData locationDetails={locationDetails}/>
+                                                </div>
+                                            </Fragment>
+                                            }
+                                        </Fragment>
+                                    }
+                                </div>
                             </div>
                         </div>
-                        <SearchSuggestion onChangeIpAddress={this.onChangeIpAddress}
-                                          getLocation={this.getLocation}
-                                          suggestions={historySuggestion}
-                                          inputVal={ipAddress}
-                        />
-                        {loading ? <Spinner/> :
-                            <Fragment>
-                                {error && <div> {error} </div>}
-                                {locationDetails.length > 0 &&
-                                <Fragment>
-                                    <br/>
-                                    <ShowGeoData locationDetails={locationDetails}/>
-                                </Fragment>
-                                }
-                            </Fragment>
-                        }
                     </div>
                 </div>
             </div>

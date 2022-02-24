@@ -4,20 +4,32 @@ import React from "react";
 function ShowGeoData({locationDetails}) {
     return (
         <div>
-            {locationDetails.map(details => {
-                const {ip} = details
-                return <h3 key={ip} style={{marginBottom:'20px'}}>Information About IP Address: {ip}</h3>
-            })}
-            <div className='row'>
-               <div className='col'>
-                    <p>Country Name</p>
+            <div className='row'
+                 style={{textAlign: 'left'}}
+            >
+                <div className='col-12'>
+                    {locationDetails.map(details => {
+                        const {ip} = details
+                        return <h3 key={ip} style={{marginBottom:'20px'}}>Information About IP Address: {ip}</h3>
+                    })}
+                </div>
+               <div className='col-6'>
+                   <p>Country Name</p>
                    <p>Country Code</p>
                    <p>City</p>
                    <p>Flag</p>
                    <p>Latitude</p>
                    <p>Longitude</p>
+                   <br/>
+                   {locationDetails.map(details => {
+                       const {ip, latitude,} = details
+                       return <a href={`https://www.google.com/maps/search/?api=1&query=${latitude},${latitude}`}
+                                 target={'_blank'}
+                                 key={ip}
+                       >Visit In Map</a>
+                   })}
                </div>
-                <div className='col'>
+                <div className='col-6'>
                     {locationDetails.map(details => {
                         const {
                             ip, city, country_flag, country_name,
@@ -27,7 +39,7 @@ function ShowGeoData({locationDetails}) {
                             <p>{country_name}</p>
                             <p>{country_code2}</p>
                             <p>{city}</p>
-                            <img src={country_flag} alt={'flag'}/>
+                            <p><img src={country_flag} alt={'flag'}/></p>
                             <p>{latitude}</p>
                             <p>{longitude}</p>
                         </Fragment>
@@ -67,14 +79,6 @@ function ShowGeoData({locationDetails}) {
                 {/*</tr>*/}
                 {/*</tbody>*/}
             {/*</table>*/}
-            <br/>
-            {locationDetails.map(details => {
-                const {ip, latitude,} = details
-                return <a href={`https://www.google.com/maps/search/?api=1&query=${latitude},${latitude}`}
-                          target={'_blank'}
-                          key={ip}
-                >Visit In Map</a>
-            })}
         </div>
     )
 }
