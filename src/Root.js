@@ -7,6 +7,7 @@ import Navbar from "./components/layout/Navbar";
 import {root, ipTracker} from "./path/commonPath";
 import Footer from "./components/layout/Footer";
 import IpTracker from "./components/iptracker/IpTracker";
+import ProtectedRoutes from "./components/common/ProtectedRoutes";
 
 
 function Root() {
@@ -22,8 +23,10 @@ function Root() {
         <div className="App">
             <Navbar navigate={navigate} isAuthenticated={isAuthenticated}/>
             <Routes>
-                <Route path={root} element={<SawoLogin auth={auth} navigate={navigate} isAuthenticated={isAuthenticated}/>}/>
-                <Route exact path={ipTracker} element={<IpTracker />}/>
+                <Route path={root} element={<SawoLogin  auth={auth} navigate={navigate} isAuthenticated={isAuthenticated}/>}/>
+                <Route element={ <ProtectedRoutes isAuthenticated={isAuthenticated}/>}>
+                    <Route exact path={ipTracker} element={<IpTracker />}/>
+                </Route>
             </Routes>
             <Footer/>
         </div>
