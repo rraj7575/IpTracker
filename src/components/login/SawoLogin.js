@@ -1,12 +1,13 @@
-import {useState, useEffect} from "react";
+import {useEffect} from "react";
 import Sawo from "sawo";
 import "./LoginPage.css";
 import LocalStorage from './../../utils/localStorage'
 import {ipTracker} from "../../path/commonPath";
+import PropTypes from "prop-types";
 
 const SAWO_API_KEY = process.env.REACT_APP_SAWO_API_KEY;
 
-const SawoLogin = ({navigate, auth, isAuthenticated}) => {
+const SawoLogin = ({navigate, isAuthenticated}) => {
     // const [isUserLoggedIn, setUserLoggedIn] = useState(false);
     // const [payload, setPayload] = useState({});
     if (isAuthenticated) {
@@ -36,6 +37,11 @@ const SawoLogin = ({navigate, auth, isAuthenticated}) => {
             </section>
         </div>
     );
+};
+
+SawoLogin.propTypes = {
+    navigate: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
 };
 
 export default SawoLogin;

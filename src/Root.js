@@ -9,7 +9,7 @@ import Footer from "./components/layout/Footer";
 import IpTracker from "./components/iptracker/IpTracker";
 
 
-function Root({}) {
+function Root() {
     const navigate = useNavigate();
     let auth = LocalStorage.userDetails ? JSON.parse(LocalStorage.userDetails) : {}
     let isAuthenticated = !!auth.user_id
@@ -20,10 +20,10 @@ function Root({}) {
     }, [])
     return (
         <div className="App">
-            <Navbar auth={auth} navigate={navigate} isAuthenticated={isAuthenticated}/>
+            <Navbar navigate={navigate} isAuthenticated={isAuthenticated}/>
             <Routes>
                 <Route path={root} element={<SawoLogin auth={auth} navigate={navigate} isAuthenticated={isAuthenticated}/>}/>
-                <Route exact path={ipTracker} element={<IpTracker auth={auth} isAuthenticated={isAuthenticated}/>}/>
+                <Route exact path={ipTracker} element={<IpTracker />}/>
             </Routes>
             <Footer/>
         </div>

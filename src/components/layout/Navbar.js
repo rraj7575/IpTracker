@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import LocalStorage from './../../utils/localStorage'
 
-function Navbar({auth, navigate, isAuthenticated}) {
+function Navbar({navigate, isAuthenticated}) {
     const onLogout = (e) => {
         e.preventDefault()
         LocalStorage.clear()
@@ -36,7 +36,8 @@ function Navbar({auth, navigate, isAuthenticated}) {
 }
 
 Navbar.propTypes = {
-    auth: PropTypes.object.isRequired,
+    navigate: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
 };
 
 
