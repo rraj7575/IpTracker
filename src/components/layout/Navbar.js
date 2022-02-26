@@ -29,7 +29,7 @@ function Navbar({navigate, isAuthenticated}) {
     )
     return (
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-            <a className="navbar-brand" href="#">Ip Tracker</a>
+            <a className="navbar-brand" style={{color: 'white'}}>Ip Tracker</a>
             {isAuthenticated ? authLink : guestLink}
         </nav>
     )

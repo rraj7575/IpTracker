@@ -6,6 +6,7 @@
 }
 .search-suggestion{
     position: relative;
+    z-index: 10;
 }
 .search-suggestion-ul{
     position: absolute;

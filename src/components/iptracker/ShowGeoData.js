@@ -1,4 +1,4 @@
-import {Fragment} from 'react'
+import {Fragment, memo} from 'react'
 import React from "react";
 
 function ShowGeoData({locationDetails}) {
@@ -51,4 +51,4 @@ function ShowGeoData({locationDetails}) {
 }
 
 
-export default ShowGeoData
+export default memo(ShowGeoData)
