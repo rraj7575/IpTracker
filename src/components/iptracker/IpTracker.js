@@ -48,7 +48,12 @@ class IpTracker extends Component {
                 this.setState({...updatedState})
             })
             .catch(err => {
-                this.setState({loading: false, locationDetails: [], historySuggestion: [], error: 'Invalid ip address'})
+                this.setState({
+                    loading: false,
+                    locationDetails: [],
+                    historySuggestion: [],
+                    error: 'Invalid ip address'
+                })
             })
         this.storeSearchedHistory()
     }

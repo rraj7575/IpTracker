@@ -14,9 +14,7 @@ function SearchSuggestion({suggestions, onChangeIpAddress, getLocation}) {
               }) => (
                 <div className="row">
                     <div className="col-sm-12 search-suggestion">
-                        <ul {...getListItemProps()} className="list-group search-product search-suggestion-ul"
-                            style={{zIndex: '10'}}
-                        >
+                        <ul {...getListItemProps()} className="list-group search-product search-suggestion-ul">
                             {suggestions.map((ipAddress, index) => {
                                 return (
                                     <Fragment key={ipAddress}>

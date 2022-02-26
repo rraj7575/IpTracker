@@ -16,16 +16,17 @@ function Root() {
     let isAuthenticated = !!auth.user_id
     useEffect(() => {
         if (isAuthenticated) {
-            navigate('/ip-tracker')
+            navigate(ipTracker)
         }
     }, [])
     return (
         <div className="App">
             <Navbar navigate={navigate} isAuthenticated={isAuthenticated}/>
             <Routes>
-                <Route path={root} element={<SawoLogin  auth={auth} navigate={navigate} isAuthenticated={isAuthenticated}/>}/>
-                <Route element={ <ProtectedRoutes isAuthenticated={isAuthenticated}/>}>
-                    <Route exact path={ipTracker} element={<IpTracker />}/>
+                <Route path={root}
+                       element={<SawoLogin auth={auth} navigate={navigate} isAuthenticated={isAuthenticated}/>}/>
+                <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated}/>}>
+                    <Route exact path={ipTracker} element={<IpTracker/>}/>
                 </Route>
             </Routes>
             <Footer/>
