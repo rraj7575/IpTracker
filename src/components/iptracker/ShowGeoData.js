@@ -3,7 +3,6 @@ import React from "react";
 
 function ShowGeoData({locationDetails}) {
     return (
-
         <div className='row'
              style={{textAlign: 'left'}}
         >

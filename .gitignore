@@ -11,8 +11,7 @@
 # production
 /build
 .idea/
-.env.*
-.env
+
 
 # misc
 .DS_Store
